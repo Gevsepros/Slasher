@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
@@ -86,9 +86,9 @@ public class EnemyAi : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            ///Attack code here 
+            //Attack code here
             animator.SetTrigger("Attack");
-            ///
+            //
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

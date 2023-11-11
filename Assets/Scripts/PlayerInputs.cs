@@ -6,12 +6,12 @@ public class PlayerInputs : MonoBehaviour
 {
     [SerializeField] float speedMultiplier = 20f;
     [SerializeField] Camera playerCam;
-    [SerializeField] float runningMultiplier = 2f;
+    //[SerializeField] float runningMultiplier = 2f;
     Rigidbody rb;
     Animator animator;
     Vector3 moveDir = Vector3.zero;
     Vector2 moveInputValue;
-    bool isRunning = false;
+    //bool isRunning = false;
 
     void Awake()
     {
@@ -20,8 +20,8 @@ public class PlayerInputs : MonoBehaviour
     }
     void Update()
     {
-        moveDir += moveInputValue.x * GetCameraRight(playerCam) * speedMultiplier * (isRunning ? runningMultiplier : 1);
-        moveDir += moveInputValue.y * GetCameraForward(playerCam) * speedMultiplier * (isRunning ? runningMultiplier : 1);
+        moveDir += moveInputValue.x * GetCameraRight(playerCam) * speedMultiplier;// * (isRunning ? runningMultiplier : 1);
+        moveDir += moveInputValue.y * GetCameraForward(playerCam) * speedMultiplier;// * (isRunning ? runningMultiplier : 1);
 
         rb.AddForce(moveDir, ForceMode.Impulse);
         animator.SetFloat("Speed", moveDir.sqrMagnitude);
@@ -46,13 +46,22 @@ public class PlayerInputs : MonoBehaviour
     void OnMove(InputValue value)  
     {
         moveInputValue = value.Get<Vector2>().normalized;
-        if (moveInputValue == Vector2.zero) isRunning = false; 
+        //if (moveInputValue == Vector2.zero) isRunning = false; 
     }
 
-    void OnRun()
+    void OnLightAttack()
+    {
+        animator.SetTrigger("LightAttack");
+    }
+
+    void OnHeavyAttack()
+    {
+        animator.SetTrigger("HeavyAttack");
+    }
+    /*void OnRun()
     {
         isRunning = true;
-    }
+    }*/
     void LookAt()
     {
         Vector3 direction = rb.velocity;
